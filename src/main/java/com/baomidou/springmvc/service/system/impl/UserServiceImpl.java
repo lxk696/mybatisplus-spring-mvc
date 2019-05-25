@@ -28,8 +28,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     public User selectTest(long l) {
         //List<User> users = userMapper.selectList(Wrappers.<User>lambdaQuery().select(User::getIitt, User::getName));
         //或者使用QueryWrapper
-        List<User> users = userMapper.selectList(new QueryWrapper<User>().select("id", "name"));
-        IPage<User> userIPage = userMapper.selectPage(new Page<User>(1, 10, true), new QueryWrapper<User>().select("id", "name"));
+        List<User> users = userMapper.selectList(new QueryWrapper<User>().select("iitt", "name"));
+        IPage<User> userIPage = userMapper.selectPage(new Page<User>(1, 10, true), new QueryWrapper<User>().select("iitt", "name"));
         return userMapper.selectTest(l);
     }
 

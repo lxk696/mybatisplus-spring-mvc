@@ -1,5 +1,6 @@
 package com.baomidou.springmvc.model.enums;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.enums.IEnum;
 
 import java.io.Serializable;
@@ -23,6 +24,7 @@ public enum TypeEnum implements IEnum {
     @Override
     public Serializable getValue() {
         return this.value;
+        //return JSON.toJSONString(this);
     }
 
     // Jackson 注解为 JsonValue 返回中文 json 描述

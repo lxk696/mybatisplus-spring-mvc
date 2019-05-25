@@ -59,40 +59,71 @@
         <property name="plugins">
             <array>
                 <!-- 分页插件配置 -->
-                <bean id="paginationInterceptor" class="com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor">
+                <bean id="paginationInterceptor"
+                      class="com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor"/>
+                <!--乐观锁插件-->
+                <bean class="com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor"/>
+                <!--注册执行分析插件,生产环境不建议使用-->
+
+                <bean class="com.baomidou.mybatisplus.extension.plugins.SqlExplainInterceptor"/>
+                <!-- SQL 执行性能分析，开发环境使用，线上不推荐。 maxTime 指的是 sql 最大执行时长 -->
+                <bean class="com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor">
+                    <property name="maxTime" value="1000"/>
+                    <!--SQL是否格式化 默认false-->
+                    <property name="format" value="true"/>
                 </bean>
+
             </array>
         </property>
-	    <!-- 全局配置注入 -->
-	    <property name="globalConfig" ref="globalConfig" />
-	</bean>
-	<bean id="globalConfig" class="com.baomidou.mybatisplus.core.config.GlobalConfig">
-	    <!--
-			AUTO->`0`("数据库ID自增")
-		 	INPUT->`1`(用户输入ID")
-			ID_WORKER->`2`("全局唯一ID")
-			UUID->`3`("全局唯一ID")
-		-->
-	    <!--<property name="DbConfig.idType" value="com.baomidou.mybatisplus.annotation.IdType.ID_WORKER" /> TODO -->
-		<!--
-			MYSQL->`mysql`
-			ORACLE->`oracle`
-			DB2->`db2`
-			H2->`h2`
-			HSQL->`hsql`
-			SQLITE->`sqlite`
-			POSTGRE->`postgresql`
-			SQLSERVER2005->`sqlserver2005`
-			SQLSERVER->`sqlserver`
-		-->
-		<!-- Oracle需要添加该项 -->
-	    <!-- <property name="dbType" value="oracle" /> -->
-	    <!-- 全局表为下划线命名设置 true -->
-	    <!-- <property name="dbColumnUnderline" value="true" /> -->
+        <!-- 全局配置注入 -->
+        <property name="globalConfig" ref="globalConfig"/>
+    </bean>
+    <bean id="globalConfig" class="com.baomidou.mybatisplus.core.config.GlobalConfig">
+        <!--
+            AUTO->`0`("数据库ID自增")
+             INPUT->`1`(用户输入ID")
+            ID_WORKER->`2`("全局唯一ID")
+            UUID->`3`("全局唯一ID")
+        -->
+        <!--<property name="DbConfig.idType" value="com.baomidou.mybatisplus.annotation.IdType.ID_WORKER" /> TODO -->
+        <!--
+            MYSQL->`mysql`
+            ORACLE->`oracle`
+            DB2->`db2`
+            H2->`h2`
+            HSQL->`hsql`
+            SQLITE->`sqlite`
+            POSTGRE->`postgresql`
+            SQLSERVER2005->`sqlserver2005`
+            SQLSERVER->`sqlserver`
+        -->
+        <!-- Oracle需要添加该项 -->
+        <!-- <property name="dbType" value="oracle" /> -->
+        <!-- 全局表为下划线命名设置 true -->
+        <!-- <property name="dbColumnUnderline" value="true" /> -->
         <property name="metaObjectHandler">
-            <bean class="com.baomidou.springmvc.common.MyMetaObjectHandler" />
+            <bean class="com.baomidou.springmvc.common.MyMetaObjectHandler"/>
         </property>
-	</bean>
+
+        <property name="dbConfig">
+            <bean class="com.baomidou.mybatisplus.core.config.GlobalConfig.DbConfig">
+                <!-- 全局的主键策略 -->
+                <property name="idType" value="AUTO"/>
+                <!-- 全局的表前缀策略配置 -->
+                <!--<property name="tablePrefix" value="tbl_"/>-->
+                <!--逻辑删除全局配值-->
+                <property name="logicDeleteValue" value="0"/>
+                <property name="logicNotDeleteValue" value="1"/>
+            </bean>
+        </property>
+
+        <!--&lt;!&ndash;注入自定义全局操作&ndash;&gt;-->
+        <property name="sqlInjector" ref="mySqlInjector"/>
+    </bean>
+
+
+    <!--自定义注入器-->
+    <bean id="mySqlInjector" class="com.baomidou.springmvc.common.myplus.MyInjector"/>
 
     <!-- MyBatis 动态扫描  -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">

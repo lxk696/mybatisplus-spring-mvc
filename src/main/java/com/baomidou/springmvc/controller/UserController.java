@@ -52,12 +52,12 @@ public class UserController extends BaseController {
         QueryWrapper<User> apply = new QueryWrapper<User>().apply("sql ", "params");
         String sqlSelect1 = apply.getSqlSelect();
 ////////////////////////////
-        IPage<User> userIPage = userService.page(new Page<User>(1, 10, true), new QueryWrapper<User>().setEntity(user).select("id", "name"));
+        IPage<User> userIPage = userService.page(new Page<User>(1, 10, true), new QueryWrapper<User>().setEntity(user).select("iitt", "name"));
         //或者使用QueryWrapper
-        List<User> list = userService.list(new QueryWrapper<User>().select("id", "name"));
+        List<User> list = userService.list(new QueryWrapper<User>().select("iitt", "name"));
 ///////////////////////
 //        SELECT exists(select * from sys_user where age = 1)
-        String sqlSelect2 = new QueryWrapper<User>().exists("select id from sys_user where age = 1").getSqlSelect();
+        String sqlSelect2 = new QueryWrapper<User>().exists("select iitt from sys_user where age = 1").getSqlSelect();
 
         /////////////
         return userService.list(null);

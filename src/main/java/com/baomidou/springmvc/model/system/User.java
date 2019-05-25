@@ -9,7 +9,9 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.springmvc.model.enums.TypeEnum;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 /**
@@ -17,8 +19,17 @@ import lombok.experimental.Accessors;
  */
 @TableName("sys_user")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Accessors(chain = true)
 public class User implements Serializable {
+
+    public User(String name, TypeEnum type, Integer age, Date ctime) {
+        this.name = name;
+        this.type = type;
+        this.age = age;
+        this.ctime = ctime;
+    }
 
     private static final long serialVersionUID = 1L;
 
