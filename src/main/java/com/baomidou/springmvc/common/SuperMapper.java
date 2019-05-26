@@ -18,6 +18,6 @@ public interface SuperMapper<T> extends com.baomidou.mybatisplus.core.mapper.Bas
 
     Integer insertBatchSomeColumn(List<T> list);
 
-    Integer insertBatchSomeColumn(Predicate<TableFieldInfo> predicate, @Param("list") List<T> list);
+    Integer insertBatchSomeColumn(@Param("list") List<T> list, Predicate<TableFieldInfo> predicate);
 
 }

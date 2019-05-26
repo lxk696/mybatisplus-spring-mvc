@@ -43,10 +43,12 @@ public class TestDivSql {
         list.add(new User("name33", TypeEnum.DISABLED, 33, new Date()));
         list.add(new User("name44", TypeEnum.NORMAL, 44, new Date()));
         Integer insertBatch = userMapper.insertBatchSomeColumn(list);
+        LOG.info("insertBatchSomeColumn 成功 1 ：" + insertBatch);
+
         //FIXME  t -> !t.getProperty().equals("age") 带条件报错
         //Integer insertBatch = userMapper.insertBatchSomeColumn(t -> !t.isLogicDelete(), list2);
-        //Integer insertBatch = userMapper.insertBatchSomeColumn(t -> !t.getProperty().equals("age"), list);
-        LOG.info("insertBatchSomeColumn 成功 1 ：" + insertBatch);
+        Integer insertBatch2 = userMapper.insertBatchSomeColumn(list, t -> !t.getProperty().equals("age"));
+        LOG.info("insertBatchSomeColumn 成功 2 ：" + insertBatch2);
 
 
 
